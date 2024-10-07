@@ -1,10 +1,5 @@
 <?php
-//PDO
-$host = 'localhost';
-$database = 'app_database';
-$user = 'user_1';
-$password = 'Password*123';
-$pdo = new PDO("mysql:host=$host;dbname=$database", $user, $password);
+require_once("db_connection.php");
 
 $sql = 'select id, name, price from product';
 
