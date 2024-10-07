@@ -1,7 +1,7 @@
 <?php
 //PDO
 $host = 'localhost';
-$database = 'app_database123';
+$database = 'app_database';
 $user = 'user_1';
 $password = 'Password*123';
 try {
