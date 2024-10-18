@@ -8,7 +8,7 @@
             $(document).ready(function(){
                 alert("Hello JQuery World!");
                 window.console && console.log("Hello JQuery...");
-            })
+            });
         </script>
     </body>
 </html>
