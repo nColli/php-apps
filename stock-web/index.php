@@ -14,7 +14,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         header('Location: index.php');
         return;
     } else {
-        $_SESSION['pdo'] = $pdo;
+        $_SESSION['username'] = $username;
+        $_SESSION['password'] = $password;
 
         $_SESSION['success'] = 'Success, logged!';
 
