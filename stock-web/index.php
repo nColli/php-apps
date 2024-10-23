@@ -2,15 +2,15 @@
 session_start();
 require_once('database.php');
 
-if (isset($_POST['username'], $_POST['password'])) {
+if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = htmlentities($_POST['username']);
-    $password = htmlentities($_POST['username']);
+    $password = htmlentities($_POST['password']);
 
     $pdo = try_connection($username, $password); //return FALSE if connection fails
 
-    if (!$pdo) {
+    if ($pdo == FALSE) {
         $_SESSION['error'] = 'Error, username or password incorrect';
-        
+
         header('Location: index.php');
         return;
     } else {
@@ -92,6 +92,10 @@ if (isset($_POST['username'], $_POST['password'])) {
                 <button type="submit">Login</button>
             </div>
         </form>
+        <!-- 
+            VALIDATE LOGIN WITH JQUERY IF USERNAME OR PASSWORD IS BLANK
+            SEND ALERT OR MAKE LABEL RED AND PREVENT SEND POST REQUEST
+        --> 
     </div>
 </body>
 </html>
