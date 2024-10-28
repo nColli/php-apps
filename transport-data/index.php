@@ -14,6 +14,18 @@ if ($response === FALSE) {
 // Decode the JSON response
 $data = json_decode($response, true);
 
-// Print the response
-print_r($data);
+
 ?>
+
+<pre>
+    <?= // Print the response
+        print_r($data);
+    ?>
+</pre>
+
+<p>
+    Array: 
+    <?php
+        echo($data["entity"]["0"]["id"]);
+    ?>
+</p>
