@@ -13,6 +13,7 @@ if ( ! isset( $_SESSION['data'] ) ) {
 
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +27,17 @@ if ( ! isset( $_SESSION['data'] ) ) {
     <script type="text/javascript">
         $(document).ready(function() {
             $("#reload").click(function(){
-
-                window.location.replace("index.php");
+                $.ajax({
+                    url: 'reload.php', 
+                    type: 'GET',
+                    success: function(data) {
+                        window.location.replace("index.php");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching data: " + error);
+                    }
+                });
+                
             });
         });
     </script>
