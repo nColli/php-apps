@@ -2,31 +2,53 @@
 session_start();
 require_once('config.php');
 
-// save json using cookies
-if (isset($_SESSION['json'])) {
-    $data = $_SESSION['json'];
-} else {
-    // The URL of the API endpoint
+if ( ! isset( $_SESSION['data'] ) ) {
     $url = "https://apitransporte.buenosaires.gob.ar/subtes/serviceAlerts?client_id=$client_id&client_secret=$client_secret&json=1";
-
-    // Make the GET request
     $response = file_get_contents($url);
+    $data = json_decode($response, TRUE);
 
-    // Check if the request was successful
-    if ($response === FALSE) {
-        die('Error occurred while making the GET request');
-    }
-    // Decode the JSON response
-    $data = json_decode($response, true);
-
-    //setcookie('json', $data, time() + 120); // '/' use to save it in entire website
-    $_SESSION['json'] = $data;
+    $_SESSION['data'] = $data;
+    $_SESSION['message'] = 'new data';
 }
+
+
+
 ?>
 
-<pre>
-    <?= // Print the response
-        print_r($data);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport</title>
+    <script type="text/javascript" src="jquery-3.7.1.min.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#reload").click(function(){
+
+                window.location.replace("index.php");
+            });
+        });
+    </script>
+
+</head>
+<body>
+    
+<?php
+    if (isset($_SESSION['message'])) {
+        echo('<p>'.$_SESSION['message'].'</p>');
+        unset($_SESSION['message']);
+    }
+?>
+
+
+<button type="button" id="reload">Reload</button>
+
+
+<pre id="data" >
+    <?php
+        print_r($_SESSION['data']);
     ?>
 </pre>
 
@@ -36,3 +58,6 @@ if (isset($_SESSION['json'])) {
         print_r($data["entity"]["0"]["alert"]["informed_entity"]["0"]["route_id"]);
     ?>
 </p>
+
+</body>
+</html>
