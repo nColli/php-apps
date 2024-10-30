@@ -56,18 +56,25 @@ if ( ! isset( $_SESSION['data'] ) ) {
 <button type="button" id="reload">Reload</button>
 
 
+<h3>Alerts</h3>
+<ul>
+    <?php
+    $entities = $_SESSION['data']['entity'];
+    foreach($entities as $alert) {
+        echo '<li>';
+        echo $alert['alert']['informed_entity'][0]['route_id'] . ': ' . $alert['alert']['header_text']['translation'][0]['text'];
+        echo '</li><br>';
+    }
+
+    ?>
+</ul>
+
 <pre id="data" >
     <?php
-        print_r($_SESSION['data']);
+        print_r($_SESSION['data']['entity']);
     ?>
 </pre>
 
-<p>
-    Array: 
-    <?php
-        print_r($data["entity"]["0"]["alert"]["informed_entity"]["0"]["route_id"]);
-    ?>
-</p>
 
 </body>
 </html>
