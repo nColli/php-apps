@@ -2,17 +2,25 @@
 session_start();
 require_once('config.php');
 
+$url_base = "https://apitransporte.buenosaires.gob.ar";
+
 if ( ! isset( $_SESSION['data'] ) ) {
-    $url = "https://apitransporte.buenosaires.gob.ar/subtes/serviceAlerts?client_id=$client_id&client_secret=$client_secret&json=1";
+    $url = $url_base . "/subtes/serviceAlerts?client_id=$client_id&client_secret=$client_secret&json=1";
     $response = file_get_contents($url);
     $data = json_decode($response, TRUE);
 
     $_SESSION['data'] = $data;
     $_SESSION['message'] = 'new data';
+
+    //$url_bus = " https://apitransporte.buenosaires.gob.ar/colectivos/feed-gtfs?client_id=$client_id&client_secret=$client_secret";
+    //$response_bus = file_get_contents($url_bus);
+    //$data_bus = json_decode($response_bus, TRUE);
+
 }
 
-
-
+$url_routes = $url_base . "/colectivos/vehiclePositionsSimple?client_id=$client_id&client_secret=$client_secret&route_id=1407&agency_id=54";
+$response_routes = file_get_contents($url_routes);
+$routes = json_decode($response_routes, TRUE);
 
 ?>
 
@@ -69,12 +77,22 @@ if ( ! isset( $_SESSION['data'] ) ) {
     ?>
 </ul>
 
-<pre id="data" >
+<h2>Rutas colectivos Linea 216 </h2>
+<ul>
     <?php
-        print_r($_SESSION['data']['entity']);
+    //$routes = $_SESSION['routes'];
+    /*
+    foreach($routes as $route) {
+        echo '<li><pre>';
+        print_r($route);
+        echo '</pre></li><br>';
+    }
+    */
+    echo "<pre>";
+    print_r($routes);
+    echo "</pre>";
     ?>
-</pre>
-
+</ul>
 
 </body>
 </html>
