@@ -18,7 +18,7 @@ if ( ! isset( $_SESSION['data'] ) ) {
 
 }
 
-$url_routes = $url_base . "/colectivos/vehiclePositionsSimple?client_id=$client_id&client_secret=$client_secret&route_id=1407&agency_id=54";
+$url_routes = $url_base . "/colectivos/vehiclePositionsSimple?client_id=$client_id&client_secret=$client_secret&agency_id=54";
 $response_routes = file_get_contents($url_routes);
 $routes = json_decode($response_routes, TRUE);
 
@@ -76,21 +76,27 @@ $routes = json_decode($response_routes, TRUE);
 
     ?>
 </ul>
+<!--
+<iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=-58.67005795240403%2C-34.66006644301572%2C-58.66651743650437%2C-34.65805213433632&amp;layer=mapnik&amp;marker=-34.659059294796066%2C-58.66828769445419" style="border: 1px solid black">
+</iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=-34.659059&amp;mlon=-58.668288#map=19/-34.659059/-58.668288">View Larger Map</a></small>
+-->
 
 <h2>Rutas colectivos Linea 216 </h2>
 <ul>
     <?php
-    //$routes = $_SESSION['routes'];
-    /*
+
     foreach($routes as $route) {
         echo '<li><pre>';
-        print_r($route);
+        //print_r($route);
+        echo "Ruta: " . $route['route_short_name'] . '<br>';
+        echo "Recorrido: " . $route['trip_headsign'] , '<br>';
         echo '</pre></li><br>';
+        ?> 
+        <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=<?= $route['longitude'] ?>%2C<?= $route['latitude'] ?>%2C<?= $route['longitude'] ?>%2C<?= $route['latitude'] ?>&amp;layer=mapnik&amp;marker=<?= $route['latitude'] ?>%2C<?= $route['longitude'] ?>" style="border: 1px solid black">
+        </iframe><br/>
+        <?php
     }
-    */
-    echo "<pre>";
-    print_r($routes);
-    echo "</pre>";
+
     ?>
 </ul>
 
