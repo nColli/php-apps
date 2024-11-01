@@ -50,6 +50,17 @@ $routes = json_decode($response_routes, TRUE);
         });
     </script>
 
+    <style>
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .route {
+            margin: 10px;
+        }
+    </style>
+
 </head>
 <body>
     
@@ -82,23 +93,24 @@ $routes = json_decode($response_routes, TRUE);
 -->
 
 <h2>Rutas colectivos Linea 216 </h2>
-<ul>
+<div class="flex-container">
     <?php
 
     foreach($routes as $route) {
-        echo '<li><pre>';
+        echo '<div class="route"><pre>';
         //print_r($route);
         echo "Ruta: " . $route['route_short_name'] . '<br>';
         echo "Recorrido: " . $route['trip_headsign'] , '<br>';
-        echo '</pre></li><br>';
+        echo '</pre><br>';
         ?> 
-        <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=<?= $route['longitude'] ?>%2C<?= $route['latitude'] ?>%2C<?= $route['longitude'] ?>%2C<?= $route['latitude'] ?>&amp;layer=mapnik&amp;marker=<?= $route['latitude'] ?>%2C<?= $route['longitude'] ?>" style="border: 1px solid black">
+        <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=<?= $route['longitude'] ?>%2C<?= $route['latitude'] + 0.009 ?>%2C<?= $route['longitude'] ?>%2C<?= $route['latitude'] ?>&amp;layer=mapnik&amp;marker=<?= $route['latitude'] ?>%2C<?= $route['longitude'] ?>" style="border: 1px solid black">
         </iframe><br/>
         <?php
+        echo '</div>';
     }
 
     ?>
-</ul>
+</div>
 
 </body>
 </html>
