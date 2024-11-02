@@ -54,10 +54,13 @@ $routes = json_decode($response_routes, TRUE);
         .flex-container {
             display: flex;
             flex-wrap: wrap;
+
         }
 
         .route {
             margin: 10px;
+            border: 1px solid black;
+            padding: 5px;
         }
     </style>
 
